@@ -4,11 +4,11 @@
 Sebastián encalada, Juan Bautista, Gian Tituaña
 
 ## Archivo principal
-- `programa.marie`: Código fuente del programa.
+- `programa_convolucion.mas`: Código fuente del programa.
 
 ## Cómo usarlo
 1. Abre MARIE.js en tu navegador.
-2. Carga el archivo `programa.marie`.
+2. Carga el archivo `programa_convolucion.mas`.
 3. Ejecuta el programa y verifica la salida.
 
 ## Propósito
