@@ -1,0 +1,1005 @@
+﻿Jump InicioPrograma
+/Variables 
+Cero, Hex 0
+Diez, Dec 10
+Uno, Hex 1
+Dos, Hex 2
+DiezHex, Hex 10
+Suma, Hex 0
+tempDireccion, Hex 0
+
+/Manejo matriz grande
+TamañoFilasMatrizGrande, Hex 40
+TamañoColumnasMatrizGrande, Hex 4
+InicioMatrizGrande, Hex 200
+/PosicionActualMatrizGrandeFila, Hex 200
+/PosicionActualMatrizGrandeColumna, Hex 0
+FinalMatrizGrandeFila, Hex 0
+FinalMatrizGrandeColumna, Hex 0
+
+/Manejo Matriz pequeña
+TamañoFilaMatrizPequeñaIterable, Hex 30
+TamañoFilaMatrizPequeña, Hex 3
+TamañoColumnaMatrizPequeña, Hex 3
+/PosicionActualMatrizPequeñaFila, Hex 310
+/PosicionActualMatrizPequeñaColumna, Hex 0
+PosicionCentroMatrizPequeñaFila, Hex 0
+PosicionCentroMatrizPequeñaColumna, Hex 0
+PosicionRelativaMatrizPequeñaFila, Hex 0
+PosicionRelativaMatrizPequeñaColumna, Hex 0
+InicioMatrizPequeña, Hex 310
+
+/Manejo Matriz Nueva
+PosicionActualMatrizNueva, Hex 400
+
+/Variables para loops
+VariableLoopI, Hex 0
+VariableLoopJ, Hex 0
+VariableLoopK, Hex 0
+VariableLoopL, Hex 0
+
+/Variables para los if's
+chequeoFila, Hex 0
+chequeoColumna, Hex 0
+
+/Letras para imprmir las matrixes
+X, Hex 58
+K, Hex 4B
+Y, Hex 59
+Igual, Hex 3D
+
+/////Obtener posicion del centro de matriz pequeña//////////////
+InicioPrograma, Load TamañoFilaMatrizPequeña
+Subt Uno
+JnS DividirDosFnc
+Load DivididoDos
+Store NumeroAMultiplicarX
+Load DiezHex
+Store NumeroAMultiplicarY
+JnS MultiplicarDosNumerosFcn
+Load ResultadoMultiplicacionFnc
+Store PosicionCentroMatrizPequeñaFila
+/////Fin de obtener posicion de la fila del centro de la matriz pequeña////////
+////Obtener posicion de la columna del centro de la matriz pequeña/////////////
+Load TamañoColumnaMatrizPequeña
+Subt Uno
+JnS DividirDosFnc
+Load DivididoDos
+Store PosicionCentroMatrizPequeñaColumna
+////Fin de obtener posicion de la columna del centro de la matriz pequeña/////
+///Obtener el final de la Matriz grande en sus filas y columnas para determinar sus limites////
+Load InicioMatrizGrande
+Add TamañoFilasMatrizGrande
+Subt DiezHex
+Store FinalMatrizGrandeFila 
+
+Clear
+Add TamañoColumnasMatrizGrande
+Subt Uno
+Store FinalMatrizGrandeColumna
+////Fin de determinar los limites
+JnS FuncionConvolucion //Llamar a la funcion que realiza la convolucion
+Load X
+Output
+Load EspacioParaImprimir
+Output
+Load Igual
+Output
+Load SaltoDeLinea
+Output
+Load TamañoFilasMatrizGrande
+Store TamañoFilasMatrizAImprimir
+Load TamañoColumnasMatrizGrande
+Store TamañoColumnasMatrizAImprimir
+Load InicioMatrizGrande
+Store InicioDeMatrizAImprimir
+JnS ImprimirUnaMatrizFnc
+
+Load SaltoDeLinea
+Output
+Load K
+Output
+Load EspacioParaImprimir
+Output
+Load Igual
+Output
+Load SaltoDeLinea
+Output
+Load TamañoFilaMatrizPequeñaIterable
+Store TamañoFilasMatrizAImprimir
+Load TamañoColumnaMatrizPequeña
+Store TamañoColumnasMatrizAImprimir
+Load InicioMatrizPequeña
+Store InicioDeMatrizAImprimir
+JnS ImprimirUnaMatrizFnc
+
+Load SaltoDeLinea
+Output
+Load Y
+Output
+Load EspacioParaImprimir
+Output
+Load Igual
+Output
+Load SaltoDeLinea
+Output
+Load TamañoFilasMatrizGrande
+Store TamañoFilasMatrizAImprimir
+Load TamañoColumnasMatrizGrande
+Store TamañoColumnasMatrizAImprimir
+Load InicioMatrizGrande
+Add InicioMatrizGrande
+Store InicioDeMatrizAImprimir
+JnS ImprimirUnaMatrizFnc
+
+Halt
+
+FuncionConvolucion, Hex 000
+////Inicio de loopI para transversar por las filas de la matriz grande
+
+Load InicioMatrizGrande
+Store VariableLoopI
+LoopI, Load TamañoFilasMatrizGrande
+Add InicioMatrizGrande
+Subt VariableLoopI
+Skipcond 800
+Jump EndLoopI
+
+/Continua con el LoopI
+//Inicio del loopJ para transversar las columnas de la matriz grande
+InicioLoopJ, Clear
+	Store VariableLoopJ
+LoopJ, Load TamañoColumnasMatrizGrande
+	Subt VariableLoopJ
+	Skipcond 800
+    Jump EndLoopJ
+    
+    //Continua LoopJ
+	//Inicio del LoopK
+InicioLoopK, Load InicioMatrizPequeña
+		Store VariableLoopK
+LoopK, Load TamañoFilaMatrizPequeñaIterable
+		Add InicioMatrizPequeña
+		Subt VariableLoopK
+		Skipcond 800
+        Jump EndLoopK
+        
+        /Continua LoopK
+        /Iniciodel LoopL
+InicioLoopL, Clear
+			Store VariableLoopL
+LoopL, Load TamañoColumnaMatrizPequeña
+			Subt VariableLoopL
+			Skipcond 800
+			Jump EndLoopL
+            
+            /Continua LoopL
+            ////////////////Calculo de posiciones relativas en ejecion///////////////////////////////
+Load VariableLoopK
+Subt InicioMatrizPequeña
+Subt PosicionCentroMatrizPequeñaFila
+Store PosicionRelativaMatrizPequeñaFila /Posicion Reltiva Fila
+
+Load VariableLoopL
+Subt PosicionCentroMatrizPequeñaColumna
+Store PosicionRelativaMatrizPequeñaColumna /Posicion Relativa Columna
+            /////////////////Fin de calculo de posiciones relativas///////////////////
+            ////////////Calculo en ejecucion de lo que va adentro de los if's/////////
+Load PosicionRelativaMatrizPequeñaFila
+Subt InicioMatrizGrande
+Add VariableLoopI
+Store chequeoFila
+ 
+Load PosicionRelativaMatrizPequeñaColumna
+Add VariableLoopJ
+Store chequeoColumna
+            ///////////Fin del calculo de los if's////////////////////////////////////
+/if(200 + FinalMatrizGrandeFila >= PosicionRelativaMatrizPequeñaFila + VariableI >= 200)
+Load chequeoFila
+Skipcond 800
+Jump ChequeoSiEsCeroFila
+Jump ContinuarChequeoFila
+
+ChequeoSiEsCeroFila, Skipcond 400
+Jump NoCumpleRequisito
+Jump ChequeoColumna  //Porque si es 0 no necesita mas verificacion en la fila
+
+ContinuarChequeoFila, Load PosicionRelativaMatrizPequeñaFila
+Add VariableLoopI
+Subt FinalMatrizGrandeFila
+Skipcond 000
+Jump ChequeoSiEsCeroFinalFila
+Jump ChequeoColumna
+
+ChequeoSiEsCeroFinalFila, Skipcond 400
+Jump NoCumpleRequisito
+/final del if(200+FinalMatrizGrandeFila>= PosicionRelativaMatrizPequeñaFila + VariableI >= 200)
+/if(FinalMatrizGrandeColumna >=PosicionRelativaMatrizPequeñaColumna + VariableJ >=0)
+ChequeoColumna, Load chequeoColumna
+Skipcond 800
+Jump ChequeoSiEsCeroColumna
+Jump ContinuarConChequeoColumna
+
+ChequeoSiEsCeroColumna, Skipcond 400
+Jump NoCumpleRequisito
+Jump RealizarMultiplicacion
+
+ContinuarConChequeoColumna, Load PosicionRelativaMatrizPequeñaColumna
+Add VariableLoopJ
+Subt FinalMatrizGrandeColumna
+Skipcond 000
+Jump ChequeoSiEsCeroFinalColumna
+Jump RealizarMultiplicacion
+
+ChequeoSiEsCeroFinalColumna, Skipcond 400
+Jump NoCumpleRequisito
+Jump RealizarMultiplicacion
+/fin del final del if(200+FinalMatrizGrandeFila>= PosicionRelativaMatrizPequeñaFila + VariableI >= 200)
+NoCumpleRequisito, Clear
+Add Suma
+Store Suma
+Jump FinalLoopLIntermedio
+//Realizar la multiplicacion entre los valores ya pasaron las condiciones
+RealizarMultiplicacion, Load VariableLoopK
+Add VariableLoopL
+Store tempDireccion
+LoadI tempDireccion
+Store NumeroAMultiplicarX
+
+
+Load VariableLoopI
+Add VariableLoopJ
+Add PosicionRelativaMatrizPequeñaFila
+Add PosicionRelativaMatrizPequeñaColumna
+Store tempDireccion
+LoadI tempDireccion
+Store NumeroAMultiplicarY
+
+//////////////////////////////////////////////////
+JnS MultiplicarDosNumerosFcn
+Load Suma
+Add ResultadoMultiplicacionFnc
+Store Suma
+/////////////////////////////////////////////////
+//Final de la operacion matematica en la iteracion actual
+
+FinalLoopLIntermedio, Load VariableLoopL
+			Add Uno
+			Store VariableLoopL
+			Jump LoopL
+            
+EndLoopL, Load VariableLoopK
+			Add DiezHex
+			Store VariableLoopK
+			Jump LoopK	/Termina LoopL, añade 10 a K y regresa a LoopK
+	
+        
+ 
+//////////////////////////////////////////////////////////////
+EndLoopK, Load InicioMatrizGrande//Guradar el resultado en la nueva matriz
+		Add VariableLoopI
+		Add VariableLoopJ
+        Store PosicionActualMatrizNueva
+        Load Suma
+		StoreI PosicionActualMatrizNueva
+        Clear
+		Store Suma
+////////////////////////////////////////////////////////////////
+		Load VariableLoopJ //Termina LoopK y añade uno a j y vuelve a empezar LoopJ
+		Add Uno
+		Store VariableLoopJ
+		Jump LoopJ
+
+	
+EndLoopJ, Load VariableLoopI
+	Add DiezHex
+    Store VariableLoopI
+	Jump LoopI //Termina loopJ, añade 10 al contador I, y vuelve a empezar el loopI
+
+
+    
+EndLoopI, JumpI FuncionConvolucion /Termina loopI y a su vez el programa
+
+
+DividirDosFnc, Hex 0 /Rutina que divide para dos
+Store Dividendo
+Load Uno
+Store DivididoDos
+LoopDividir, Load Dividendo
+Subt Dos
+Store Dividendo
+Skipcond 800
+JumpI DividirDosFnc
+
+Load DivididoDos
+Add Uno
+Store DivididoDos
+Jump LoopDividir
+
+Dividendo, Hex 0
+DivididoDos, Hex 0
+
+MultiplicarDosNumerosFcn, Hex 000
+Clear
+Store ResultadoMultiplicacionFnc
+
+Load NumeroAMultiplicarY
+Skipcond 000
+Jump ChequeoSiYEsCeroParaMultiplicar
+
+Subt NumeroAMultiplicarY
+Subt NumeroAMultiplicarY
+Store NumeroAMultiplicarY
+Clear
+Add Uno 
+Store FlagNumeroYNegativoParaMultiplicar
+Clear
+Jump loop
+
+ChequeoSiYEsCeroParaMultiplicar,  Clear
+         Store FlagNumeroYNegativoParaMultiplicar
+         Load NumeroAMultiplicarY
+         Skipcond 400
+         Jump loop / false
+         Jump haltFuncionMultiplicarDosNumeros / true
+
+/ Loop for performing iterative addition
+loop,    Load ResultadoMultiplicacionFnc
+         Add NumeroAMultiplicarX
+         Store ResultadoMultiplicacionFnc
+
+         Load NumeroAMultiplicarY
+         Subt Uno
+         Store NumeroAMultiplicarY
+	
+         Skipcond 400 / have we completed the multiplication?
+         Jump loop / no; repeat loop
+
+Load FlagNumeroYNegativoParaMultiplicar
+Skipcond 800
+Jump haltFuncionMultiplicarDosNumeros
+
+
+Load ResultadoMultiplicacionFnc
+Subt ResultadoMultiplicacionFnc
+Subt ResultadoMultiplicacionFnc
+Store ResultadoMultiplicacionFnc
+
+haltFuncionMultiplicarDosNumeros, JumpI MultiplicarDosNumerosFcn
+
+NumeroAMultiplicarX, DEC 0
+NumeroAMultiplicarY, DEC 0
+FlagNumeroYNegativoParaMultiplicar, DEC 0
+ResultadoMultiplicacionFnc, DEC 0
+
+DividirUnNumeroParaOtroFnc, Hex 00
+LOAD Cero
+STORE ResultadoDivision        / Inicializar el resultado (cociente) a 0
+
+/ Comenzar la división entera
+DIVIDE, LOAD NumeroADividir    / Cargar 'num' en el AC
+        Subt divisor / Restar el divisor del AC
+        Skipcond 000 / Si AC == 0, significa que la división es exacta
+        Jump AUX     / Saltar a AUX si la resta es mayor o igual a 0
+
+        LOAD NumeroADividir     / Cargar 'num' en el AC nuevamente
+        Skipcond 400 / Si AC < 0, manejar números negativos
+        Jump AUX2    / Saltar a AUX2 para manejar el caso negativo
+
+        Load ResultadoDivision  / Cargar el cociente en el AC
+        Store NumeroADividir    / Almacenar el cociente en 'num'
+        Jump CONTINUE2 / Ir a CONTINUE2 para mostrar el resultado final
+
+/ Subrutina para manejar números positivos
+AUX,    STORE NumeroADividir   / Almacenar el nuevo 'num' después de restar el divisor
+        LOAD ResultadoDivision / Cargar el resultado actual en el AC
+        ADD Uno     / Incrementar el resultado en 1
+        STORE ResultadoDivision / Almacenar el nuevo resultado
+        Jump DIVIDE / Repetir el ciclo de división
+
+/ Subrutina para manejar números negativos
+AUX2,   LOAD ResultadoDivision  / Cargar el cociente en el AC
+        STORE NumeroADividir    / Almacenar el cociente en 'num'
+        JUMP CONTINUE2 / Ir a CONTINUE2 para mostrar el resultado final
+
+/ Imprimir el resultado final
+CONTINUE2, JumpI DividirUnNumeroParaOtroFnc     / Detener el programa
+
+/ Definición de variables
+NumeroADividir, DEC 0
+ResultadoDivision, DEC 0
+divisor, DEC 0
+
+///////////////////////////////////////////////////
+SacarModuloFnc, Hex 000
+/ Inicializar el resto a cero
+LOAD Cero
+STORE REMAINDER
+
+/ Comenzar la operación de módulo
+MODULO, LOAD DIVIDEND     / Cargar el dividendo en el AC
+SUBT DIVISOR              / Restar el divisor del AC
+STORE TEMP1               / Almacenar el resultado en TEMP1
+SKIPCOND 800              / Si el resultado es >= 0, continuar
+JUMP FINISH               / Si el resultado es negativo, finalizar
+
+STORE DIVIDEND            / Almacenar el nuevo valor del dividendo
+JUMP MODULO               / Repetir el ciclo
+
+FINISH, LOAD DIVIDEND     / Cargar el valor final del dividendo (resto)
+Subt DIVISOR
+Skipcond 400
+Jump FinalFuncionModulo
+STORE REMAINDER      
+JumpI SacarModuloFnc
+FinalFuncionModulo, Load DIVIDEND
+Store REMAINDER
+JumpI SacarModuloFnc      / Detener el programa
+
+/ Definición de variables
+DIVIDEND, DEC 0
+DIVISOR, DEC 0
+REMAINDER, DEC 0
+TEMP1, DEC 0
+
+ImprimirNumeroFnc, Hex 000
+Clear
+Store FlagDeNegativoParaImprimir
+Load InicioDeNumeroAImprimir
+Store PosicionActualDeGuardado
+Load NumeroAImprimir
+Skipcond 400
+Jump ContinuarRevisionImpresionDeNumero
+Jump ImprimirCero
+
+ContinuarRevisionImpresionDeNumero, Skipcond 800
+Jump InvertirAPositivo
+Jump ProcesoDeGuardado
+
+InvertirAPositivo, Load NumeroAImprimir
+Subt NumeroAImprimir
+Subt NumeroAImprimir
+Store NumeroAImprimir
+Load Uno
+Store FlagDeNegativoParaImprimir
+Jump ProcesoDeGuardado
+
+ProcesoDeGuardado, Load NumeroAImprimir
+Skipcond 800
+Jump FinalFuncionImprimir
+Store DIVIDEND
+Load Diez
+Store DIVISOR
+JnS SacarModuloFnc
+Load REMAINDER
+Add ConversorUnicode
+StoreI PosicionActualDeGuardado
+Load PosicionActualDeGuardado
+Add Uno
+Store PosicionActualDeGuardado
+Load NumeroAImprimir
+Store NumeroADividir
+Load Diez
+Store divisor
+JnS DividirUnNumeroParaOtroFnc
+Load ResultadoDivision
+Store NumeroAImprimir
+Jump ProcesoDeGuardado
+
+ImprimirCero, Load ConversorUnicode
+Output
+JumpI ImprimirNumeroFnc
+
+FinalFuncionImprimir, Load FlagDeNegativoParaImprimir
+Skipcond 400
+Jump ImprimirMenos
+PresentarNumeroEnPantalla, Load PosicionActualDeGuardado
+Subt Uno
+Store PosicionActualDeGuardado
+Load PosicionActualDeGuardado
+Subt InicioRelativoDeNumeroAImprmir
+Skipcond 800
+JumpI ImprimirNumeroFnc /////////////Final de la funcion
+LoadI PosicionActualDeGuardado
+Output
+
+Jump PresentarNumeroEnPantalla
+
+ImprimirMenos, Load SignoDeMenos
+Output
+Jump PresentarNumeroEnPantalla
+
+NumeroAImprimir, Dec 0
+FlagDeNegativoParaImprimir, Hex 0
+InicioRelativoDeNumeroAImprmir, Hex 2FF
+InicioDeNumeroAImprimir, Hex 300
+PosicionActualDeGuardado, Hex 0
+SignoDeMenos, Hex 2D
+ConversorUnicode, Hex 30
+////////////////////////////////////////////////////
+ImprimirUnaMatrizFnc, Hex 000
+
+Load InicioDeMatrizAImprimir
+Store VariableLoopI
+LoopIImprimir, Load TamañoFilasMatrizAImprimir
+Add InicioDeMatrizAImprimir
+Subt VariableLoopI
+Skipcond 800
+Jump EndLoopIImprimir
+
+/Continua con el LoopIImprimir
+//Inicio del loopJ para transversar las columnas de la matriz grande
+InicioLoopJImprimir, Clear
+	Store VariableLoopJ
+LoopJImprimir, Load TamañoColumnasMatrizAImprimir
+	Subt VariableLoopJ
+	Skipcond 800
+    Jump EndLoopJImprimir
+    /Continua LoopJImprmir
+    Load VariableLoopI
+	Add VariableLoopJ
+	Store tempDireccion
+	LoadI tempDireccion
+    Store NumeroAImprimir
+	JnS ImprimirNumeroFnc
+	
+    Load EspacioParaImprimir
+	Output
+
+    Load VariableLoopJ
+	Add Uno
+	Store VariableLoopJ
+	Jump LoopJImprimir
+EndLoopJImprimir, Load VariableLoopI
+	Add DiezHex
+    Store VariableLoopI
+    Load SaltoDeLinea
+	Output
+	Jump LoopIImprimir //Termina loopJ, añade 10 al contador I, y vuelve a empezar el loopI
+    
+EndLoopIImprimir, JumpI ImprimirUnaMatrizFnc
+/Variables
+InicioDeMatrizAImprimir, Hex 0
+TamañoFilasMatrizAImprimir, Hex 0
+TamañoColumnasMatrizAImprimir, Hex 0
+EspacioParaImprimir, Hex 20
+SaltoDeLinea, Hex A
+
+/////////////////Padding para llegar a la memoria requerida////////////////////
+
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+
+//Primera Fila matriz grande
+Hex 001
+Hex 002
+Hex 003
+Hex 004
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+//Segunda Fila matriz Grande
+Hex 001
+Hex 002
+Hex 003
+Hex 004
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+//Tercera Fila Matriz Grande
+Hex 001
+Hex 002
+Hex 003
+Hex 004
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+//Cuarta Fila Matriz Grande
+Hex 001
+Hex 002
+Hex 003
+Hex 004
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+Hex 001
+//Quinta Fila Matriz Grande
+
+Hex 040
+Hex 041
+Hex 042
+Hex 043
+Hex 044
+Hex 045
+Hex 046
+Hex 047
+Hex 048
+Hex 049
+Hex 04A
+Hex 04B
+Hex 04C
+Hex 04D
+Hex 04E
+Hex 04F
+
+//Sexta Fila Matriz Grande
+Hex 050
+Hex 051
+Hex 052
+Hex 053
+Hex 054
+Hex 055
+Hex 056
+Hex 057
+Hex 058
+Hex 059
+Hex 05A
+Hex 05B
+Hex 05C
+Hex 05D
+Hex 05E
+Hex 05F
+
+//Septima Fila Matriz Grande
+Hex 060
+Hex 061
+Hex 062
+Hex 063
+Hex 064
+Hex 065
+Hex 066
+Hex 067
+Hex 068
+Hex 069
+Hex 06A
+Hex 06B
+Hex 06C
+Hex 06D
+Hex 06E
+Hex 06F
+
+//Octava Fila Matriz Grande
+Hex 070
+Hex 071
+Hex 072
+Hex 073
+Hex 074
+Hex 075
+Hex 076
+Hex 077
+Hex 078
+Hex 079
+Hex 07A
+Hex 07B
+Hex 07C
+Hex 07D
+Hex 07E
+Hex 07F
+
+//Novena Fila Matriz Grande
+Hex 080
+Hex 081
+Hex 082
+Hex 083
+Hex 084
+Hex 085
+Hex 086
+Hex 087
+Hex 088
+Hex 089
+Hex 08A
+Hex 08B
+Hex 08C
+Hex 08D
+Hex 08E
+Hex 08F
+
+//Decima Fila Matriz Grande
+Hex 090
+Hex 091
+Hex 092
+Hex 093
+Hex 094
+Hex 095
+Hex 096
+Hex 097
+Hex 098
+Hex 099
+Hex 09A
+Hex 09B
+Hex 09C
+Hex 09D
+Hex 09E
+Hex 09F
+
+//Onceava Fila Matriz Grande
+Hex 0A0
+Hex 0A1
+Hex 0A2
+Hex 0A3
+Hex 0A4
+Hex 0A5
+Hex 0A6
+Hex 0A7
+Hex 0A8
+Hex 0A9
+Hex 0AA
+Hex 0AB
+Hex 0AC
+Hex 0AD
+Hex 0AE
+Hex 0AF
+
+//Decimo Segunda Fila Matriz Grande
+Hex 0B0
+Hex 0B1
+Hex 0B2
+Hex 0B3
+Hex 0B4
+Hex 0B5
+Hex 0B6
+Hex 0B7
+Hex 0B8
+Hex 0B9
+Hex 0BA
+Hex 0BB
+Hex 0BC
+Hex 0BD
+Hex 0BE
+Hex 0BF
+
+//Decimo Tercera Fila Matriz Grande
+Hex 0C0
+Hex 0C1
+Hex 0C2
+Hex 0C3
+Hex 0C4
+Hex 0C5
+Hex 0C6
+Hex 0C7
+Hex 0C8
+Hex 0C9
+Hex 0CA
+Hex 0CB
+Hex 0CC
+Hex 0CD
+Hex 0CE
+Hex 0CF
+
+//Decimo Cuarta Fila Matriz Grande
+Hex 0D0
+Hex 0D1
+Hex 0D2
+Hex 0D3
+Hex 0D4
+Hex 0D5
+Hex 0D6
+Hex 0D7
+Hex 0D8
+Hex 0D9
+Hex 0DA
+Hex 0DB
+Hex 0DC
+Hex 0DD
+Hex 0DE
+Hex 0DF
+
+//Decimo Quinta Fila Matriz Grande
+Hex 0E0
+Hex 0E1
+Hex 0E2
+Hex 0E3
+Hex 0E4
+Hex 0E5
+Hex 0E6
+Hex 0E7
+Hex 0E8
+Hex 0E9
+Hex 0EA
+Hex 0EB
+Hex 0EC
+Hex 0ED
+Hex 0EE
+Hex 0EF
+
+//Decimo Sexto Fila Matriz Grande
+Hex 0F0
+Hex 0F1
+Hex 0F2
+Hex 0F3
+Hex 0F4
+Hex 0F5
+Hex 0F6
+Hex 0F7
+Hex 0F8
+Hex 0F9
+Hex 0FA
+Hex 0FB
+Hex 0FC
+Hex 0FD
+Hex 0FE
+Hex 0FF
+
+//Pading para empezar a guardar la matriz pequeña
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+//Final del padding
+Dec -5
+Dec -6
+Dec -7
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+
+Dec -8
+Dec -9
+Dec -10
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+
+Dec -11
+Dec -12
+Dec -13
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+Hex 000
+
