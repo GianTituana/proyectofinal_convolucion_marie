@@ -1,6 +1,6 @@
 # proyectofinal_convolucion_marie
-# autores: Sebastián encalada, Juan Bautista, Gian Tituaña
 
+## Autores: Sebastián encalada, Juan Bautista, Gian Tituaña
 
 ## Archivo principal
 - `programa.marie`: Código fuente del programa.
@@ -33,6 +33,8 @@ K =
 -8    **-9**   -10
 
 -11   -12   -13
+
+- Salida: 
 
 Y =
 
