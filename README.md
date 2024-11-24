@@ -1,6 +1,7 @@
 # proyectofinal_convolucion_marie
 
-## Autores: Sebastián encalada, Juan Bautista, Gian Tituaña
+## Autores
+Sebastián encalada, Juan Bautista, Gian Tituaña
 
 ## Archivo principal
 - `programa.marie`: Código fuente del programa.
